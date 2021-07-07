@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="로그인"
+        android:textColor="@color/black"
+        android:padding="10dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="#D9D9D9"/>
+
+    <EditText
+        android:id = "@+id/login_id"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:textSize="20dp"
+        android:layout_marginTop="40dp"
+        android:padding="5dp"
+        android:background="@drawable/textbox_edge"
+        android:hint="아이디를 입력해주세요."/>
+
+    <EditText
+        android:id = "@+id/login_pw"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:textSize="20dp"
+        android:layout_marginTop="15dp"
+        android:padding="5dp"
+        android:background="@drawable/textbox_edge"
+        android:hint="비밀번호를 입력해주세요."/>
+
+    <Button
+        android:id = "@+id/login_button"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
+        android:backgroundTint="#F5D16B"
+        android:stateListAnimator="@null"
+        android:hint="로그인"/>
+
+    <TextView
+        android:id="@+id/login_join"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "계정이 없으신가요?"
+        android:textSize="15dp"
+        android:textColor="#000"
+        android:layout_marginTop="30dp"/>
+
+</LinearLayout>
