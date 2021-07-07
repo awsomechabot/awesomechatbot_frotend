@@ -6,13 +6,27 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".NoticeActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="병원 가기"
+        android:textColor="@color/black"
+        android:padding="10dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="#D9D9D9"/>
     <ImageView
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="400dp"
         android:src="@drawable/hospital"/>
     <TextView
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:padding="30dp"
@@ -28,7 +42,9 @@
         android:textSize="20dp"
         android:textStyle="bold"
         android:backgroundTint="#F5D16B"
-        android:layout_margin="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="근처 병원 진료 예약"/>
