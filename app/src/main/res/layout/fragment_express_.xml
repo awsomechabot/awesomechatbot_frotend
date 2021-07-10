@@ -5,13 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Express_Fragment">
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:textStyle="bold"
-        android:textSize="20dp"
+        android:textSize="30dp"
         android:text="증상 표현하기"
         android:textColor="@color/black"
         android:padding="10dp"/>
@@ -20,4 +19,62 @@
         android:layout_height="2px"
         android:background="#D9D9D9"/>
 
+    <ImageView
+        android:layout_width="190dp"
+        android:layout_height="190dp"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/patient"
+        android:layout_gravity="center"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="50dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#CC6600"
+            android:textSize="40dp"
+            android:textStyle="bold"
+            android:text="'머리'"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:text="와 "/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#CC6600"
+            android:textSize="40dp"
+            android:textStyle="bold"
+            android:text="배"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:text="가 아파요!"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="40dp"
+        android:text="의사선생님!\n진찰해주세요!"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="70dp"
+        android:backgroundTint="#F5D16B"
+        android:text="진찰 받기"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:layout_gravity="bottom"/>
 </LinearLayout>
