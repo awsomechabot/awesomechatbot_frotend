@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_header.view.*
 
@@ -62,6 +63,27 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.closeDrawer(GravityCompat.START)
             return@setNavigationItemSelectedListener true
         }
+    }
+
+    fun setDataAtFragmentAcc(fragment: Fragment, array: ArrayList<String>) {
+        val bundle = Bundle()
+        bundle.putStringArrayList("array", array)
+        fragment.arguments = bundle
+        setFragment(fragment)
+    }
+
+    fun setDataAtFragmentHome(fragment: Fragment, data: RecordItem) {
+        val bundle = Bundle()
+        bundle.putSerializable("item", data)
+        fragment.arguments = bundle
+        setFragment(fragment)
+    }
+
+    // 데이터가 셋팅된 프래그먼트 띄우기
+    fun setFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container, fragment)
+        transaction.commit()
     }
 
     override fun onBackPressed() { // 이전키가 눌려졌을 때 자동 호출

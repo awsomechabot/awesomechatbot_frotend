@@ -39,6 +39,7 @@
                     android:src="@drawable/headache_2"
                     android:layout_gravity="center"/>
                 <CheckBox
+                    android:id="@+id/chkHead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -58,6 +59,7 @@
                     android:src="@drawable/stomachache"
                     android:layout_gravity="center"/>
                 <CheckBox
+                    android:id="@+id/chkBelly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -77,6 +79,7 @@
                     android:src="@drawable/nail"
                     android:layout_gravity="center"/>
                 <CheckBox
+                    android:id="@+id/chkNail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -96,6 +99,7 @@
                     android:src="@drawable/toothache"
                     android:layout_gravity="center"/>
                 <CheckBox
+                    android:id="@+id/chkTooth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -104,6 +108,15 @@
                     android:textColor="@color/black"
                     android:text="치아가 아파요"/>
             </LinearLayout>
+            <Button
+                android:id="@+id/goExpressBtn"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:backgroundTint="#F5D16B"
+                android:text="진찰 받기"
+                android:textStyle="bold"
+                android:textSize="30dp"
+                android:layout_gravity="bottom"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
