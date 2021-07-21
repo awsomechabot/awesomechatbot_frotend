@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_express_.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,11 +22,14 @@ class Express_Fragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var chkArray: ArrayList<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
+            chkArray = it.getStringArrayList("array") as ArrayList<String>
         }
     }
 
@@ -35,6 +39,168 @@ class Express_Fragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_express_, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        tvHead1.visibility = View.VISIBLE
+        tvHead2.visibility = View.VISIBLE
+        tvBelly1.visibility = View.VISIBLE
+        tvBelly2.visibility = View.VISIBLE
+        tvHB.visibility = View.VISIBLE
+        tvNail1.visibility = View.VISIBLE
+        tvNail2.visibility = View.VISIBLE
+        tvTooth1.visibility = View.VISIBLE
+        tvTooth2.visibility = View.VISIBLE
+        tvNT.visibility = View.VISIBLE
+
+        if(chkArray.contains("머리")) {
+            if(chkArray.contains("배")) {
+                if(chkArray.contains("발톱/손톱")) {
+                    if(chkArray.contains("치아")) {
+                        tvHB.visibility = View.GONE
+                        tvTooth2.visibility = View.GONE
+                    } else {
+                        tvHB.visibility = View.GONE
+                        tvNail2.visibility = View.GONE
+                        tvTooth1.visibility = View.GONE
+                        tvNT.visibility = View.GONE
+                    }
+                } else {
+                    if(chkArray.contains("치아")) {
+                        tvHB.visibility = View.GONE
+                        tvTooth2.visibility = View.GONE
+                        tvNail1.visibility = View.GONE
+                        tvNail2.visibility = View.GONE
+                    } else {
+                        tvBelly2.visibility = View.GONE
+                        tvNail1.visibility = View.GONE
+                        tvNail2.visibility = View.GONE
+                        tvTooth1.visibility = View.GONE
+                        tvTooth2.visibility = View.GONE
+                        tvNT.visibility = View.GONE
+                    }
+                }
+            } else {
+                if(chkArray.contains("발톱/손톱")) {
+                    if(chkArray.contains("치아")) {
+                        tvBelly1.visibility = View.GONE
+                        tvBelly2.visibility = View.GONE
+                        tvHB.visibility = View.GONE
+                        tvTooth2.visibility = View.GONE
+                    } else {
+                        tvBelly1.visibility = View.GONE
+                        tvBelly2.visibility = View.GONE
+                        tvHB.visibility = View.GONE
+                        tvNail2.visibility = View.GONE
+                        tvTooth1.visibility = View.GONE
+                        tvNT.visibility = View.GONE
+                    }
+                } else {
+                    if(chkArray.contains("치아")) {
+                        tvBelly1.visibility = View.GONE
+                        tvBelly2.visibility = View.GONE
+                        tvHB.visibility = View.GONE
+                        tvTooth2.visibility = View.GONE
+                        tvNail1.visibility = View.GONE
+                        tvNail2.visibility = View.GONE
+                    } else {
+                        tvHead2.visibility = View.GONE
+                        tvBelly1.visibility = View.GONE
+                        tvBelly2.visibility = View.GONE
+                        tvNail1.visibility = View.GONE
+                        tvNail2.visibility = View.GONE
+                        tvTooth1.visibility = View.GONE
+                        tvTooth2.visibility = View.GONE
+                        tvNT.visibility = View.GONE
+                    }
+                }
+            }
+        } else {
+            if(chkArray.contains("배")) {
+                if(chkArray.contains("발톱/손톱")) {
+                    if(chkArray.contains("치아")) {
+                        tvHead1.visibility = View.GONE
+                        tvHead2.visibility = View.GONE
+                        tvHB.visibility = View.GONE
+                        tvTooth2.visibility = View.GONE
+                    } else {
+                        tvHead1.visibility = View.GONE
+                        tvHead2.visibility = View.GONE
+                        tvHB.visibility = View.GONE
+                        tvNail2.visibility = View.GONE
+                        tvTooth1.visibility = View.GONE
+                        tvNT.visibility = View.GONE
+                    }
+                } else {
+                    if(chkArray.contains("치아")) {
+                        tvHead1.visibility = View.GONE
+                        tvHead2.visibility = View.GONE
+                        tvHB.visibility = View.GONE
+                        tvTooth2.visibility = View.GONE
+                        tvNail1.visibility = View.GONE
+                        tvNail2.visibility = View.GONE
+                    } else {
+                        tvHead1.visibility = View.GONE
+                        tvHead2.visibility = View.GONE
+                        tvBelly2.visibility = View.GONE
+                        tvNail1.visibility = View.GONE
+                        tvNail2.visibility = View.GONE
+                        tvTooth1.visibility = View.GONE
+                        tvTooth2.visibility = View.GONE
+                        tvNT.visibility = View.GONE
+                    }
+                }
+            } else {
+                if(chkArray.contains("발톱/손톱")) {
+                    if(chkArray.contains("치아")) {
+                        tvHead1.visibility = View.GONE
+                        tvHead2.visibility = View.GONE
+                        tvBelly1.visibility = View.GONE
+                        tvBelly2.visibility = View.GONE
+                        tvHB.visibility = View.GONE
+                        tvTooth2.visibility = View.GONE
+                    } else {
+                        tvHead1.visibility = View.GONE
+                        tvHead2.visibility = View.GONE
+                        tvBelly1.visibility = View.GONE
+                        tvBelly2.visibility = View.GONE
+                        tvHB.visibility = View.GONE
+                        tvNail2.visibility = View.GONE
+                        tvTooth1.visibility = View.GONE
+                        tvNT.visibility = View.GONE
+                    }
+                } else {
+                    if(chkArray.contains("치아")) {
+                        tvHead1.visibility = View.GONE
+                        tvHead2.visibility = View.GONE
+                        tvBelly1.visibility = View.GONE
+                        tvBelly2.visibility = View.GONE
+                        tvHB.visibility = View.GONE
+                        tvTooth2.visibility = View.GONE
+                        tvNail1.visibility = View.GONE
+                        tvNail2.visibility = View.GONE
+                    } else {
+                        tvHead1.visibility = View.GONE
+                        tvHead2.visibility = View.GONE
+                        tvHead2.visibility = View.GONE
+                        tvBelly1.visibility = View.GONE
+                        tvBelly2.visibility = View.GONE
+                        tvNail1.visibility = View.GONE
+                        tvNail2.visibility = View.GONE
+                        tvTooth1.visibility = View.GONE
+                        tvTooth2.visibility = View.GONE
+                        tvNT.visibility = View.GONE
+                    }
+                }
+            }
+        }
+
+        goAddBtn.setOnClickListener {
+            val mActivity = activity as MainActivity
+            mActivity.setDataAtFragmentAcc(Add_Fragment(), chkArray)
+        }
     }
 
     companion object {
