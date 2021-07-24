@@ -18,20 +18,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Doctor Chatbot"
-        android:textSize="22dp"
+        android:textSize="25dp"
         android:textStyle="bold"
         android:layout_marginBottom="20dp"
         android:layout_gravity="center"
         android:textColor="@color/black"/>
     <EditText
-        android:id="@+id/edit_id"
+        android:id="@+id/ID_login"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:backgroundTint="@color/black"
         android:hint="ID"/>
     <EditText
-        android:id="@+id/edit_pw"
+        android:id="@+id/PW_login"
         android:layout_width="300dp"
         android:inputType="textPassword"
         android:layout_height="wrap_content"
