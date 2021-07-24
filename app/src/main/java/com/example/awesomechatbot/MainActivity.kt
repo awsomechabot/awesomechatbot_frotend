@@ -1,29 +1,22 @@
 package com.example.awesomechatbot
 
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_header.*
 import kotlinx.android.synthetic.main.nav_header.view.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
     private lateinit var retrofit: Retrofit
-    private lateinit var retrofitInterface : RetrofitInterface
+    private lateinit var retrofitInterface : RetrofitInteface
     private var BASE_URL = "http://172.30.1.25:3000" // ip 주소 변경
-    lateinit var idTxt : TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -37,9 +30,10 @@ class MainActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        retrofitInterface = retrofit.create(RetrofitInterface::class.java)
+        retrofitInterface = retrofit.create(RetrofitInteface::class.java)
 
         var nav_header_view = navigationView.getHeaderView(0)
+        nav_header_view.userName.text = userId.toString()
 
         with(supportFragmentManager.beginTransaction()) {
             val fragment1 = Home_Fragment()

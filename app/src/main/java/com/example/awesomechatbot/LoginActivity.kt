@@ -16,7 +16,7 @@ import java.util.*
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var retrofit: Retrofit
-    private lateinit var retrofitInterface : RetrofitInterface
+    private lateinit var retrofitInterface : RetrofitInteface
     private var BASE_URL = "http://172.30.1.25:3000" // ip 주소 변경
 
     private lateinit var loginBtn : Button
@@ -32,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        retrofitInterface = retrofit.create(RetrofitInterface::class.java)
+        retrofitInterface = retrofit.create(RetrofitInteface::class.java)
 
         loginBtn = findViewById(R.id.btn_login)
         signupBtn = findViewById(R.id.btn_register)
@@ -48,39 +48,41 @@ class LoginActivity : AppCompatActivity() {
 
             val call = retrofitInterface.executeLogin(map)
 
-            call.enqueue(object : Callback<LoginResult?> {
-                override fun onResponse(
-                    call: Call<LoginResult?>,
-                    response: Response<LoginResult?>
-                ) {
-                    if (response.code() == 200) {
-                        val result = response.body()
-                        val builder1 = AlertDialog.Builder(this@LoginActivity)
-                        var intent = Intent(applicationContext, MainActivity::class.java) // 두번째 인자에 이동할 액티비티
-                        intent.putExtra("user_id",result!!.id)
-                        intent.putExtra("user_pw",result.password)
+            if (call != null) {
+                call.enqueue(object : Callback<LoginResult?> {
+                    override fun onResponse(
+                            call: Call<LoginResult?>,
+                            response: Response<LoginResult?>
+                    ) {
+                        if (response.code() == 200) {
+                            val result = response.body()
+                            val builder1 = AlertDialog.Builder(this@LoginActivity)
+                            var intent = Intent(applicationContext, MainActivity::class.java) // 두번째 인자에 이동할 액티비티
+                            intent.putExtra("user_id",result!!.id)
+                            intent.putExtra("user_pw",result.password)
 
-                        builder1.setTitle(result.id)
-                        builder1.setMessage(result.password)
-                        builder1.show()
+                            builder1.setTitle(result.id)
+                            builder1.setMessage(result.password)
+                            builder1.show()
 
-                        startActivityForResult(intent,0)
+                            startActivityForResult(intent,0)
 
-                    } else if (response.code() == 404) {
+                        } else if (response.code() == 404) {
+                            Toast.makeText(
+                                    this@LoginActivity, "404 에러 페이지",
+                                    Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<LoginResult?>, t: Throwable) {
                         Toast.makeText(
-                            this@LoginActivity, "404 에러 페이지",
-                            Toast.LENGTH_LONG
+                                this@LoginActivity, t.message,
+                                Toast.LENGTH_LONG
                         ).show()
                     }
-                }
-
-                override fun onFailure(call: Call<LoginResult?>, t: Throwable) {
-                    Toast.makeText(
-                        this@LoginActivity, t.message,
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            })
+                })
+            }
         }
         // 회원가입 버튼 클릭 시
         signupBtn.setOnClickListener {
