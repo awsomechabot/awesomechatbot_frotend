@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_add_.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,6 +50,34 @@ class Add_Fragment : Fragment() {
         addHomeBtn.setOnClickListener {
             val mActivity = activity as MainActivity
             mActivity.setFragment(Home_Fragment())
+        }
+
+        // 진료 기록 추가
+        var cal = Calendar.getInstance()
+        var cYear = cal.get(Calendar.YEAR)
+        var cMonth = cal.get(Calendar.MONTH) // 1~12월 => 0~11
+        var cDay = cal.get(Calendar.DAY_OF_MONTH)
+
+        var rYear : Int = 0
+        var rMonth : Int = 0
+        var rDay : Int = 0
+
+        datePicker.init(cYear, cMonth, cDay) { view, year, month, day ->
+            rYear = year
+            rMonth = month
+            rDay = day
+        }
+
+        addRecordBtn.setOnClickListener {
+            val tvHname = tvHname.text // 병원명
+            val tvDname = tvDname.text // 병명
+            val tvAdvice = tvAdvice.text // 의사선생님 말
+            var tvRedate: String
+            if(rbRedate.isChecked) {
+                tvRedate = rYear.toString() + "/" + rMonth.toString() + "/" + rDay.toString()
+            }
+            val part = chkArray[0]
+            val date = cYear.toString() + "/" + cMonth.toString() + "/" + cDay.toString()
         }
 
         //chkArray[0]에 해당하는 부위만 부위 이미지에 표시
