@@ -15,7 +15,7 @@ import java.util.*
 
 class JoinActivity : AppCompatActivity() {
     private lateinit var retrofit: Retrofit
-    private lateinit var retrofitInterface : RetrofitInterface
+    private lateinit var retrofitInterface : RetrofitInteface
     private var BASE_URL = "http://172.30.1.25:3000"
 
     lateinit var edtId : EditText
@@ -33,7 +33,7 @@ class JoinActivity : AppCompatActivity() {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
-        retrofitInterface = retrofit.create(RetrofitInterface::class.java)
+        retrofitInterface = retrofit.create(RetrofitInteface::class.java)
 
         edtId = findViewById(R.id.edit_id)
         edtPw = findViewById(R.id.edit_pw)
@@ -52,37 +52,39 @@ class JoinActivity : AppCompatActivity() {
 
             val call = retrofitInterface.executeSignup(map)
 
-            call.enqueue(object : Callback<Void?> {
-                override fun onResponse(call: Call<Void?>, response: Response<Void?>) {
-                    if (edtPw.text.toString() != edtCheckPw.text.toString()) {
-                        Toast.makeText(this@JoinActivity,
-                                "비밀번호를 확인해주십시오.", Toast.LENGTH_LONG).show()
+            if (call != null) {
+                call.enqueue(object : Callback<Void?> {
+                    override fun onResponse(call: Call<Void?>, response: Response<Void?>) {
+                        if (edtPw.text.toString() != edtCheckPw.text.toString()) {
+                            Toast.makeText(this@JoinActivity,
+                                    "비밀번호를 확인해주십시오.", Toast.LENGTH_LONG).show()
+                        }
+                        else if (response.code() == 200) {
+                            Toast.makeText(
+                                    this@JoinActivity,
+                                    "회원가입 성공. 환영합니다.", Toast.LENGTH_LONG
+                            ).show()
+                            var intent = Intent(
+                                    applicationContext,
+                                    LoginActivity::class.java
+                            ) // 두번째 인자에 이동할 액티비티
+                            startActivity(intent)
+                        } else if (response.code() == 400) {
+                            Toast.makeText(
+                                    this@JoinActivity, "이미 가입된 아이디입니다.",
+                                    Toast.LENGTH_LONG
+                            ).show()
+                        }
                     }
-                    else if (response.code() == 200) {
-                        Toast.makeText(
-                            this@JoinActivity,
-                            "회원가입 성공. 환영합니다.", Toast.LENGTH_LONG
-                        ).show()
-                        var intent = Intent(
-                            applicationContext,
-                            LoginActivity::class.java
-                        ) // 두번째 인자에 이동할 액티비티
-                        startActivity(intent)
-                    } else if (response.code() == 400) {
-                        Toast.makeText(
-                            this@JoinActivity, "이미 가입된 아이디입니다.",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                }
 
-                override fun onFailure(call: Call<Void?>, t: Throwable) {
-                    Toast.makeText(
-                        this@JoinActivity, t.message,
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            })
+                    override fun onFailure(call: Call<Void?>, t: Throwable) {
+                        Toast.makeText(
+                                this@JoinActivity, t.message,
+                                Toast.LENGTH_LONG
+                        ).show()
+                    }
+                })
+            }
         }
 
     }
