@@ -13,33 +13,34 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var retrofit: Retrofit
+    private lateinit var retrofitBuilder: RetrofitBuilder
     private lateinit var retrofitInterface : RetrofitInteface
-    private var BASE_URL = "http://172.30.1.25:3000" // ip 주소 변경
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         var intent = intent
-        var userId = intent.getStringArrayExtra("user_id")
-        var userPw = intent.getStringArrayExtra("user_pw")
+        var userId = intent.getStringExtra("user_id")
+        var userNum = intent.getStringExtra("user_num")
+        var userBirth = intent.getStringExtra("user_birth")
+        var userName = intent.getStringExtra("user_name")
+
         Toast.makeText(applicationContext, userId.toString(), Toast.LENGTH_LONG).show()
 
-        retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        retrofitInterface = retrofit.create(RetrofitInteface::class.java)
+        retrofitBuilder = RetrofitBuilder
+        retrofitInterface = retrofitBuilder.api
 
         var nav_header_view = navigationView.getHeaderView(0)
-        nav_header_view.userName.text = userId.toString()
+        nav_header_view.userName.text = userName + "님"
+        nav_header_view.userInfo.text = userNum
+        nav_header_view.userBirth.text = userBirth
 
         with(supportFragmentManager.beginTransaction()) {
             val fragment1 = Home_Fragment()
             replace(R.id.container, fragment1)
             commit()
         }
+
         bottom_navigation.setOnNavigationItemSelectedListener {
             when(it.itemId) {
                 R.id.tab1 -> { // 하단 왼쪽 메뉴 탭 눌렀을 때
