@@ -47,8 +47,8 @@ class LoginActivity : AppCompatActivity() {
                     if (response.code() == 200) {
                         val result = response.body()
                         val builder1 = AlertDialog.Builder(this@LoginActivity)
-                        builder1.setTitle(result!!.email)
-                        builder1.setMessage(result.name + "님 환영합니다!")
+                        builder1.setTitle("로그인 성공")
+                        builder1.setMessage(result!!.name + "님 환영합니다!")
                         builder1.show()
 
                         var intent = Intent(applicationContext, MainActivity::class.java) // 두번째 인자에 이동할 액티비티

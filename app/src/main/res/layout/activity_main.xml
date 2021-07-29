@@ -41,7 +41,7 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.navigation.NavigationView
-        android:background="@color/yellow"
+        android:background="#FFDF85"
         android:padding="10dp"
         android:id="@+id/navigationView"
         android:layout_width="wrap_content"

@@ -25,8 +25,6 @@ class MainActivity : AppCompatActivity() {
         var userBirth = intent.getStringExtra("user_birth")
         var userName = intent.getStringExtra("user_name")
 
-        Toast.makeText(applicationContext, userId.toString(), Toast.LENGTH_LONG).show()
-
         retrofitBuilder = RetrofitBuilder
         retrofitInterface = retrofitBuilder.api
 
