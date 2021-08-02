@@ -32,7 +32,7 @@
             android:layout_weight="1"
             android:text = "D-day"
             android:gravity="center"
-            android:textSize="100dp"
+            android:textSize="80dp"
             android:textColor="#F5D16B"
             android:background="#8C000000"/>
 

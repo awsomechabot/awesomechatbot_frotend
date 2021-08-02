@@ -1,10 +1,12 @@
 package com.example.awesomechatbot
 
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_info.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,11 +23,14 @@ class InfoFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var item: RecordItem
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
+            item = it.getSerializable("item")!! as RecordItem
         }
     }
 
@@ -33,6 +38,35 @@ class InfoFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_info, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        infoTitle.text = item.today_date + "\n" + item.hospital_name + " 진료 기록"
+
+        var src = 0
+        when(item.part) {
+            "머리" -> src = R.drawable.headache_2
+            "배" -> src = R.drawable.stomachache
+            "발톱/손톱" -> src = R.drawable.nail
+            "치아" -> src = R.drawable.toothache
+        }
+        infoImg.setImageResource(src)
+
+        dnameInfo.text = item.disease_name
+        adviceInfo.text = item.advice
+
+        if(item.redate != "") {
+            redateInfo.text = item.redate
+        } else {
+            redateInfo.text = "재진 없음"
+        }
+
+        reHomeBtn.setOnClickListener {
+            val mActivity = activity as MainActivity
+            mActivity.setDataId(Home_Fragment(), item.user_id)
+        }
     }
 
     companion object {

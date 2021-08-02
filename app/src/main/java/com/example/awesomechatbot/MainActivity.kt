@@ -17,11 +17,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var retrofitInterface : RetrofitInteface
     private var BASE_URL = "http://172.30.1.25:3000" // ip 주소 변경
 
+    private var userId: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         var intent = intent
-        var userId = intent.getStringArrayExtra("user_id")
+        userId = intent.getStringExtra("user_id")
         var userPw = intent.getStringArrayExtra("user_pw")
         Toast.makeText(applicationContext, userId.toString(), Toast.LENGTH_LONG).show()
 
@@ -37,6 +39,10 @@ class MainActivity : AppCompatActivity() {
 
         with(supportFragmentManager.beginTransaction()) {
             val fragment1 = Home_Fragment()
+            val bundle = Bundle()
+            //bundle.putString("id", userId)
+            bundle.putString("id", "111")
+            fragment1.arguments = bundle
             replace(R.id.container, fragment1)
             commit()
         }
@@ -53,6 +59,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.tab2 -> { // 하단 가운데 메뉴 탭 눌렀을 때
                     with(supportFragmentManager.beginTransaction()) {
                         val fragment2 = Home_Fragment()
+                        val bundle = Bundle()
+                        //bundle.putString("id", userId)
+                        bundle.putString("id", "111")
+                        fragment2.arguments = bundle
                         replace(R.id.container, fragment2)
                         commit()
                     }
@@ -61,6 +71,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.tab3 -> { // 하단 오른쪽 메뉴 탭 눌렀을 때
                     with(supportFragmentManager.beginTransaction()) {
                         val fragment3 = ACC_Fragment()
+                        val bundle = Bundle()
+                        //bundle.putString("id", userId)
+                        bundle.putString("id", "111")
+                        fragment3.arguments = bundle
                         replace(R.id.container, fragment3)
                         commit()
                     }
@@ -82,9 +96,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun setDataAtFragmentAcc(fragment: Fragment, array: ArrayList<String>) {
+    fun setDataAtFragmentAcc(fragment: Fragment, array: ArrayList<String>, id: String) {
         val bundle = Bundle()
         bundle.putStringArrayList("array", array)
+        bundle.putString("id", id)
         fragment.arguments = bundle
         setFragment(fragment)
     }
@@ -92,6 +107,21 @@ class MainActivity : AppCompatActivity() {
     fun setDataAtFragmentHome(fragment: Fragment, data: RecordItem) {
         val bundle = Bundle()
         bundle.putSerializable("item", data)
+        fragment.arguments = bundle
+        setFragment(fragment)
+    }
+
+    fun setDataId(fragment: Fragment, id: String) {
+        val bundle = Bundle()
+        bundle.putString("id", id)
+        fragment.arguments = bundle
+        setFragment(fragment)
+    }
+
+    fun setDataDday(fragment: Fragment, list: ArrayList<RecordItem>?, id: String) {
+        val bundle = Bundle()
+        bundle.putSerializable("list", list)
+        bundle.putString("id", id)
         fragment.arguments = bundle
         setFragment(fragment)
     }

@@ -22,8 +22,16 @@ class RecordItemAdapter (var items:ArrayList<RecordItem>) : RecyclerView.Adapter
 
     inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         fun setItem(item:RecordItem) {
-            itemView.recycler_hospitalname.text = item.hname
-            itemView.recycler_showrecord_date.text = item.redate
+            var imgsrc = 0
+            when(item.part) {
+                "머리" -> imgsrc = R.drawable.m_head
+                "배" -> imgsrc = R.drawable.m_stomach
+                "발톱/손톱" -> imgsrc = R.drawable.nail
+                "치아" -> imgsrc = R.drawable.m_tooth
+            }
+            itemView.recycler_part.setImageResource(imgsrc)
+            itemView.recycler_hospitalname.text = item.hospital_name
+            itemView.recycler_showrecord_date.text = item.today_date
             itemView.setOnClickListener { // 상세정보 보여주기
                 val mActivity = itemView.context as MainActivity
                 mActivity.setDataAtFragmentHome(InfoFragment(), item)
