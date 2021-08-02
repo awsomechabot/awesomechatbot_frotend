@@ -39,8 +39,7 @@ class MainActivity : AppCompatActivity() {
         with(supportFragmentManager.beginTransaction()) {
             val fragment1 = Home_Fragment()
             val bundle = Bundle()
-            //bundle.putString("id", userId)
-            bundle.putString("id", "111")
+            bundle.putString("id", userId)
             fragment1.arguments = bundle
             replace(R.id.container, fragment1)
             commit()
@@ -60,8 +59,7 @@ class MainActivity : AppCompatActivity() {
                     with(supportFragmentManager.beginTransaction()) {
                         val fragment2 = Home_Fragment()
                         val bundle = Bundle()
-                        //bundle.putString("id", userId)
-                        bundle.putString("id", "111")
+                        bundle.putString("id", userId)
                         fragment2.arguments = bundle
                         replace(R.id.container, fragment2)
                         commit()
@@ -72,8 +70,7 @@ class MainActivity : AppCompatActivity() {
                     with(supportFragmentManager.beginTransaction()) {
                         val fragment3 = ACC_Fragment()
                         val bundle = Bundle()
-                        //bundle.putString("id", userId)
-                        bundle.putString("id", "111")
+                        bundle.putString("id", userId)
                         fragment3.arguments = bundle
                         replace(R.id.container, fragment3)
                         commit()
@@ -104,6 +101,7 @@ class MainActivity : AppCompatActivity() {
         setFragment(fragment)
     }
 
+    
     fun setDataAtFragmentHome(fragment: Fragment, data: RecordItem) {
         val bundle = Bundle()
         bundle.putSerializable("item", data)
@@ -140,4 +138,5 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
+
 }
