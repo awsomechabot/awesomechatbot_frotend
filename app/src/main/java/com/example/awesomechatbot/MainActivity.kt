@@ -101,6 +101,7 @@ class MainActivity : AppCompatActivity() {
         setFragment(fragment)
     }
 
+    
     fun setDataAtFragmentHome(fragment: Fragment, data: RecordItem) {
         val bundle = Bundle()
         bundle.putSerializable("item", data)
