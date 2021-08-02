@@ -24,12 +24,15 @@ class Express_Fragment : Fragment() {
 
     private lateinit var chkArray: ArrayList<String>
 
+    private lateinit var userId: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
             chkArray = it.getStringArrayList("array") as ArrayList<String>
+            userId = it.getString("id") as String
         }
     }
 
@@ -199,7 +202,7 @@ class Express_Fragment : Fragment() {
 
         goAddBtn.setOnClickListener {
             val mActivity = activity as MainActivity
-            mActivity.setDataAtFragmentAcc(Add_Fragment(), chkArray)
+            mActivity.setDataAtFragmentAcc(Add_Fragment(), chkArray, userId)
         }
     }
 

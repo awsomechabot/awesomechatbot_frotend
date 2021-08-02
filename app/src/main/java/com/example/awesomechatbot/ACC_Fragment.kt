@@ -30,11 +30,14 @@ class ACC_Fragment : Fragment() {
 
     private lateinit var mContext : Context
 
+    private var userId : String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
+            userId = it.getString("id") as String?
         }
     }
 
@@ -104,7 +107,7 @@ class ACC_Fragment : Fragment() {
                 Toast.makeText(mContext, "아픈 곳을 체크해주세요", Toast.LENGTH_SHORT).show()
             } else {
                 val mActivity = activity as MainActivity
-                mActivity.setDataAtFragmentAcc(Express_Fragment(), chkArray)
+                mActivity.setDataAtFragmentAcc(Express_Fragment(), chkArray, userId!!)
             }
         }
     }
