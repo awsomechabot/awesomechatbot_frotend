@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".InfoFragment">
+
+    <TextView
+        android:id="@+id/infoTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:text="0000/00/00 \n00 병원 진료 기록"
+        android:textColor="@color/black"
+        android:padding="10dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="#D9D9D9"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/infoImg"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/headache_2"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:layout_marginTop="70dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="병명"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:ems="10"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:id="@+id/dnameInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:textSize="20dp"
+                    android:text="00" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:background="#D9D9D9"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="의사 선생님 말"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:ems="10"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:id="@+id/adviceInfo"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:maxLines="4"
+                    android:lines="4"
+                    android:textSize="15dp"
+                    android:text="식후 30분 뒤에 약을 복용하세요." />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:background="#D9D9D9"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="재진 날짜"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:ems="10"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:id="@+id/redateInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:textSize="20dp"
+                    android:text="0000/00/00" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:background="#D9D9D9"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/reHomeBtn"
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:backgroundTint="#F5D16B"
+                android:text="돌아가기"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="20dp" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
