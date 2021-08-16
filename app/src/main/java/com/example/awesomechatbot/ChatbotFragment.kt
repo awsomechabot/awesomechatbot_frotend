@@ -1,10 +1,26 @@
 package com.example.awesomechatbot
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import com.example.awesomechatbot.adapters.ChatAdapter
+import com.example.awesomechatbot.helpers.SendMessageInBg
+import com.example.awesomechatbot.interfaces.BotReply
+import com.google.api.gax.core.FixedCredentialsProvider
+import com.google.auth.oauth2.GoogleCredentials
+import com.google.auth.oauth2.ServiceAccountCredentials
+import com.google.cloud.dialogflow.v2.*
+import com.google.common.collect.Lists
+import com.example.awesomechatbot.models.Message
+import kotlinx.android.synthetic.main.fragment_chatbot.view.*
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -16,10 +32,22 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ChatbotFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ChatbotFragment : Fragment() {
+
+class ChatbotFragment : Fragment(), BotReply {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    lateinit var chatView: RecyclerView
+    lateinit var chatAdapter: ChatAdapter
+    var messageList = ArrayList<Message>()
+    lateinit var editMessage: EditText
+    lateinit var btnSend: ImageButton
+
+    //dialogFlow
+    private var sessionsClient: SessionsClient? = null
+    private var sessionName: SessionName? = null
+    private val uuid = UUID.randomUUID().toString()
+    private val TAG = "mainactivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +60,69 @@ class ChatbotFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chatbot, container, false)
+        val view : View = inflater.inflate(R.layout.fragment_chatbot, container, false)
+        chatView = view.findViewById<RecyclerView>(R.id.chatView)
+        editMessage = view.findViewById<EditText>(R.id.editMessage)
+        btnSend = view.findViewById<ImageButton>(R.id.btnSend)
+
+        chatAdapter = ChatAdapter(messageList, this)
+        chatView.adapter = chatAdapter
+
+        view.btnSend!!.setOnClickListener {
+            val message = editMessage!!.text.toString()
+            if (!message.isEmpty()) {
+                messageList.add(Message(message, true))
+                editMessage!!.setText("")
+                sendMessageToBot(message)
+                Objects.requireNonNull(chatView!!.adapter)!!.notifyDataSetChanged()
+                Objects.requireNonNull(chatView!!.layoutManager)
+                        ?.scrollToPosition(messageList.size - 1)
+            } else {
+                Toast.makeText(getActivity(), "Please enter text!", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        setUpBot()
+
+        return view
+    }
+
+    private fun setUpBot() {
+        try {
+            val stream = this.resources.openRawResource(R.raw.credential)
+            val credentials = GoogleCredentials.fromStream(stream)
+                    .createScoped(Lists.newArrayList("https://www.googleapis.com/auth/cloud-platform"))
+            val projectId = (credentials as ServiceAccountCredentials).projectId
+            val settingsBuilder = SessionsSettings.newBuilder()
+            val sessionsSettings = settingsBuilder.setCredentialsProvider(
+                    FixedCredentialsProvider.create(credentials)).build()
+            sessionsClient = SessionsClient.create(sessionsSettings)
+            sessionName = SessionName.of(projectId, uuid)
+            Log.d(TAG, "projectId : $projectId")
+        } catch (e: Exception) {
+            Log.d(TAG, "setUpBot: " + e.message)
+        }
+    }
+
+    private fun sendMessageToBot(message: String) {
+        val input = QueryInput.newBuilder()
+                .setText(TextInput.newBuilder().setText(message).setLanguageCode("en-US")).build()
+        SendMessageInBg(this, sessionName!!, sessionsClient!!, input).execute()
+    }
+
+    override fun callback(returnResponse: DetectIntentResponse?) {
+        if (returnResponse != null) {
+            val botReply = returnResponse.queryResult.fulfillmentText
+            if (!botReply.isEmpty()) {
+                messageList.add(Message(botReply, true))
+                chatAdapter!!.notifyDataSetChanged()
+                Objects.requireNonNull(chatView!!.layoutManager)?.scrollToPosition(messageList.size - 1)
+            } else {
+                Toast.makeText(getActivity(), "something went wrong", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            Toast.makeText(getActivity(), "failed to connect!", Toast.LENGTH_SHORT).show()
+        }
     }
 
     companion object {
