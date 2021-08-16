@@ -71,7 +71,7 @@ class ChatbotFragment : Fragment(), BotReply {
         view.btnSend!!.setOnClickListener {
             val message = editMessage!!.text.toString()
             if (!message.isEmpty()) {
-                messageList.add(Message(message, true))
+                messageList.add(Message(message, false))
                 editMessage!!.setText("")
                 sendMessageToBot(message)
                 Objects.requireNonNull(chatView!!.adapter)!!.notifyDataSetChanged()
