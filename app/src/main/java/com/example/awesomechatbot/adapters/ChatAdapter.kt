@@ -3,6 +3,7 @@ package com.example.awesomechatbot.adapters
 import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.inflate
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -10,16 +11,10 @@ import com.example.awesomechatbot.ChatbotFragment
 import com.example.awesomechatbot.R
 import com.example.awesomechatbot.models.Message
 
-class ChatAdapter(messageList: List<Message>, activity: ChatbotFragment) : RecyclerView.Adapter<com.example.awesomechatbot.adapters.ChatAdapter.MyViewHolder>() {
-    private var messageList: List<Message>? = null
-    private var activity: Activity? = null
+class ChatAdapter(var messageList: ArrayList<Message>, var activity: ChatbotFragment) : RecyclerView.Adapter<com.example.awesomechatbot.adapters.ChatAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = LayoutInflater.from(activity).inflate(
-            R.layout.adapter_message_one,
-            parent,
-            false
-        )
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.adapter_message_one,parent,false)
         return MyViewHolder(view)
     }
 
