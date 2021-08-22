@@ -1,5 +1,6 @@
 package com.example.awesomechatbot
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -42,7 +43,9 @@ class ChatbotFragment : Fragment(), BotReply {
     var messageList = ArrayList<Message>()
     lateinit var editMessage: EditText
     lateinit var btnSend: ImageButton
-
+    var check : Int = 0
+    var point : String = ""
+    var hospital : String = ""
     //dialogFlow
     private var sessionsClient: SessionsClient? = null
     private var sessionName: SessionName? = null
@@ -77,6 +80,21 @@ class ChatbotFragment : Fragment(), BotReply {
                 Objects.requireNonNull(chatView!!.adapter)!!.notifyDataSetChanged()
                 Objects.requireNonNull(chatView!!.layoutManager)
                         ?.scrollToPosition(messageList.size - 1)
+                if(check==1){
+                    if(message.contains("배")){
+                        point += "배 "
+                        hospital += "내과 "
+                    }
+                    if(message.contains("머리")){
+                        point += "머리 "
+                        hospital += "신경과 "
+                    }
+                    if(message.contains("다리")) {
+                        point += "다리 "
+                        hospital +="정형외과 "
+                    }
+                    check=0
+                }
             } else {
                 Toast.makeText(getActivity(), "Please enter text!", Toast.LENGTH_SHORT).show()
             }
@@ -98,6 +116,7 @@ class ChatbotFragment : Fragment(), BotReply {
                     FixedCredentialsProvider.create(credentials)).build()
             sessionsClient = SessionsClient.create(sessionsSettings)
             sessionName = SessionName.of(projectId, uuid)
+
             Log.d(TAG, "projectId : $projectId")
         } catch (e: Exception) {
             Log.d(TAG, "setUpBot: " + e.message)
@@ -117,6 +136,21 @@ class ChatbotFragment : Fragment(), BotReply {
                 messageList.add(Message(botReply, true))
                 chatAdapter!!.notifyDataSetChanged()
                 Objects.requireNonNull(chatView!!.layoutManager)?.scrollToPosition(messageList.size - 1)
+
+                // 추가
+                if(botReply.contains("있군요.") or botReply.contains("있으시군요.")){
+                    var intent = Intent(activity, NoticeActivity::class.java) // 두번째 인자에 이동할 액티비티
+                    intent.putExtra("pain", point)
+                    intent.putExtra("hospital", hospital)
+                    startActivityForResult(intent,0)
+                }
+                else if(botReply.contains("건강하군요.") or botReply.contains("다행이에요.") or botReply.contains("아픈 곳이 없군요.")){
+                    var intent = Intent(activity, CheckEndActivity::class.java) // 두번째 인자에 이동할 액티비티
+                    startActivity(intent)
+                }
+                else if(botReply.contains("어디가") or botReply.contains("아픈가요?")){
+                    check=1
+                }
             } else {
                 Toast.makeText(getActivity(), "something went wrong", Toast.LENGTH_SHORT).show()
             }

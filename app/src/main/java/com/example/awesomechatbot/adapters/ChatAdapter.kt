@@ -1,13 +1,18 @@
 package com.example.awesomechatbot.adapters
 
 import android.app.Activity
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.inflate
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.awesomechatbot.ChatbotFragment
+import com.example.awesomechatbot.LoginActivity
 import com.example.awesomechatbot.R
 import com.example.awesomechatbot.models.Message
 
@@ -25,10 +30,12 @@ class ChatAdapter(var messageList: ArrayList<Message>, var activity: ChatbotFrag
             holder.messageReceive.visibility = View.VISIBLE
             holder.messageSend.visibility = View.GONE
             holder.messageReceive.text = message
+            Log.d(message,"isReceived가 true일 때")
         } else {
             holder.messageSend.visibility = View.VISIBLE
             holder.messageReceive.visibility = View.GONE
             holder.messageSend.text = message
+            Log.d(message,"isReceived가 false일 때")
         }
     }
 

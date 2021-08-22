@@ -16,7 +16,7 @@
       android:layout_marginBottom="5dp"
       android:background="@drawable/bg_chat_send"
       android:layout_marginStart="30dp"
-      >
+      android:layout_marginLeft="30dp">
 
   </TextView>
 
