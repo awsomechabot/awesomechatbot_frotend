@@ -32,7 +32,6 @@ class LoginActivity : AppCompatActivity() {
 
         // 로그인 버튼 클릭 시
         loginBtn.setOnClickListener {
-
             // 로그인 정보 가져오기
             idLogin = findViewById(R.id.ID_login)
             pwLogin = findViewById(R.id.PW_login)
