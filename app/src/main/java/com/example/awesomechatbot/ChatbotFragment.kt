@@ -52,11 +52,14 @@ class ChatbotFragment : Fragment(), BotReply {
     private val uuid = UUID.randomUUID().toString()
     private val TAG = "mainactivity"
 
+    private var userId: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
+            userId = it.getString("id") as String
         }
     }
 
@@ -142,10 +145,12 @@ class ChatbotFragment : Fragment(), BotReply {
                     var intent = Intent(activity, NoticeActivity::class.java) // 두번째 인자에 이동할 액티비티
                     intent.putExtra("pain", point)
                     intent.putExtra("hospital", hospital)
+                    intent.putExtra("id", userId)
                     startActivityForResult(intent,0)
                 }
                 else if(botReply.contains("건강하군요.") or botReply.contains("다행이에요.") or botReply.contains("아픈 곳이 없군요.")){
                     var intent = Intent(activity, CheckEndActivity::class.java) // 두번째 인자에 이동할 액티비티
+                    intent.putExtra("id", userId)
                     startActivity(intent)
                 }
                 else if(botReply.contains("어디가") or botReply.contains("아픈가요?")){

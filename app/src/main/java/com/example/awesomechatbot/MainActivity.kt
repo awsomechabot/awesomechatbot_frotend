@@ -1,9 +1,11 @@
 package com.example.awesomechatbot
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -50,6 +52,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.tab1 -> { // 하단 왼쪽 메뉴 탭 눌렀을 때
                     with(supportFragmentManager.beginTransaction()) {
                         val fragment1 = ChatbotFragment()
+                        val bundle = Bundle()
+                        bundle.putString("id", userId)
+                        fragment1.arguments = bundle
                         replace(R.id.container, fragment1)
                         commit()
                     }
@@ -131,12 +136,20 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
+    private var backPressedTime : Long = 0
     override fun onBackPressed() { // 이전키가 눌려졌을 때 자동 호출
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()
+            if (System.currentTimeMillis() - backPressedTime < 2000) {
+                ActivityCompat.finishAffinity(this)
+                System.exit(0)
+            }
+            // 처음 클릭 메시지
+            Toast.makeText(this, "'뒤로' 버튼을 한번 더 누르시면 앱이 종료됩니다.", Toast.LENGTH_SHORT).show()
+            backPressedTime = System.currentTimeMillis()
         }
+
     }
 
 }
