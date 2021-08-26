@@ -44,7 +44,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".JoinActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginActivity" />.
         <activity android:name=".GoHospitalActivity" />
         <activity android:name=".CheckEndActivity" />
         <activity android:name=".NoticeActivity" />
