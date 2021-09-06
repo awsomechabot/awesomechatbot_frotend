@@ -13,7 +13,7 @@
    
 ### [how to use]
 1) mongodb 연결
-   <br> cmd창에서 mongod --dbpath /Users/sua/database/local 입력 후 엔터
+   <br> cmd창에서 mongod --dbpath /Users/사용자명/database/local 입력 후 엔터
 2) awesomechatbot_backend clone 후 프로젝트 폴더에서 node app.js 명령어 입력
 3) awesomechatbot_frontend clone
    - cmd 창에서 ipconfig한 뒤 ipv4 주소 복사
